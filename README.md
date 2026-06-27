@@ -31,9 +31,9 @@ intelligence that is at once arbitrary and fact-immune — a failure mode the es
 **governance-criteria capture** — taking the June 2026 export-control suspension of a
 frontier provider's most capable models as a dated, structurally diagnostic case.
 
-> This work is a short-form essay, argued and referenced to research-paper standard. Its HTML
-> edition goes further, adding a range of interactive elements — among them a graphical simulation
-> with adjustable parameters — available in that edition alone.
+> This work is a short-form essay, argued and referenced to research-paper standard,  
+> whose HTML edition adds a range of interactive elements — including a graphical simulation
+> with adjustable parameters — available in that edition alone. 
 >
 > Published in HTML and PDF under a Creative Commons BY-NC-SA 4.0 licence; the canonical version
 > is available at **https://switchia.vercel.app/**.
