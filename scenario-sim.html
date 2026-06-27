@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scenario model — regime variance and frontier decline</title>
+<style>
+  :root{
+    --paper:#f6f3ec; --panel:#fffdf8; --ink:#20201e; --muted:#6b6660;
+    --accent:#8a1f2b; --accent-soft:rgba(138,31,43,0.14); --rule:#e4ddcf; --grid:#ebe5d8;
+    --serif:"Palatino Linotype","Book Antiqua",Palatino,"URW Palladio L","P052",Georgia,serif;
+    --sans:"Helvetica Neue",Helvetica,Arial,"Liberation Sans",sans-serif;
+    --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;background:var(--paper);color:var(--ink);}
+  body{font-family:var(--serif);line-height:1.5;-webkit-font-smoothing:antialiased;padding:18px 20px 26px;}
+  .wrap{max-width:880px;margin:0 auto;}
+  .eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600;margin:0 0 4px;}
+  h1{font-family:var(--sans);font-weight:700;font-size:19px;letter-spacing:-0.01em;margin:0 0 6px;}
+  .lede{font-size:15px;color:#39362f;margin:0 0 16px;max-width:62ch;}
+  .panel{background:var(--panel);border:1px solid var(--rule);border-left:3px solid var(--accent);
+         border-radius:5px;padding:14px 16px 12px;margin-bottom:16px;}
+  .controls{display:flex;flex-wrap:wrap;gap:14px 26px;}
+  .ctl{flex:1 1 220px;min-width:200px;}
+  .ctl label{display:flex;justify-content:space-between;align-items:baseline;
+            font-family:var(--sans);font-size:12.5px;color:var(--muted);margin-bottom:5px;}
+  .ctl label .val{font-family:var(--mono);font-size:12.5px;color:var(--ink);font-weight:600;}
+  input[type=range]{width:100%;accent-color:var(--accent);height:20px;cursor:pointer;}
+  .toggle{display:flex;align-items:center;gap:9px;font-family:var(--sans);font-size:12.5px;color:var(--muted);}
+  .toggle input{width:16px;height:16px;accent-color:var(--accent);cursor:pointer;}
+  .presets{display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 0;}
+  .presets .plabel{font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+                   color:var(--muted);align-self:center;margin-right:2px;}
+  button.preset{font-family:var(--sans);font-size:12px;color:var(--ink);background:#fff;
+                border:1px solid var(--rule);border-radius:20px;padding:5px 12px;cursor:pointer;
+                transition:background .15s,border-color .15s,color .15s;}
+  button.preset:hover{background:var(--accent);border-color:var(--accent);color:#fff;}
+  button.preset.reset{border-style:dashed;}
+  figure{margin:0;}
+  .chartwrap{background:var(--panel);border:1px solid var(--rule);border-radius:5px;padding:8px 6px 4px;}
+  svg{display:block;width:100%;height:auto;}
+  #plot{transition:opacity .22s ease;}
+  .readout{display:flex;flex-wrap:wrap;gap:8px 22px;align-items:baseline;
+           font-family:var(--sans);font-size:13px;color:var(--muted);margin:12px 2px 0;}
+  .readout b{font-family:var(--mono);font-size:15px;color:var(--accent);}
+  .stat{display:flex;flex-direction:column;}
+  .stat .k{font-size:11px;letter-spacing:.04em;text-transform:uppercase;}
+  figcaption{font-size:13.5px;color:#3a372f;margin-top:14px;border-top:1px solid var(--rule);padding-top:12px;}
+  figcaption .scn{font-family:var(--sans);font-size:12.5px;color:var(--muted);margin-top:7px;}
+  figcaption code{font-family:var(--mono);font-size:12px;background:#efeadd;padding:1px 5px;border-radius:3px;}
+  .axislab{font-family:var(--sans);font-size:11px;fill:var(--muted);}
+  .ticklab{font-family:var(--mono);font-size:10px;fill:var(--muted);}
+  .thlab{font-family:var(--sans);font-size:10.5px;fill:#9a948a;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Figure · Interactive scenario model</p>
+  <h1>Regime variance and the decline of a frontier laboratory</h1>
+  <p class="lede">A heuristic model of <em>regime</em> dynamics — not a forecast. Capability is treated as a rising trend; what governs decline is the variance of the governance regime. Every coefficient is a declared assumption.</p>
+
+  <div class="panel">
+    <div class="controls">
+      <div class="ctl">
+        <label for="S">Safety-branding intensity&nbsp;(S) <span class="val" id="Sv">0.70</span></label>
+        <input type="range" id="S" min="0" max="1" step="0.05" value="0.70">
+      </div>
+      <div class="ctl">
+        <label for="R0">Initial regulatory predictability&nbsp;(R₀) <span class="val" id="R0v">0.50</span></label>
+        <input type="range" id="R0" min="0" max="1" step="0.05" value="0.50">
+      </div>
+      <div class="ctl">
+        <label for="E0">Initial epistemic coupling&nbsp;(E₀) <span class="val" id="E0v">0.50</span></label>
+        <input type="range" id="E0" min="0" max="1" step="0.05" value="0.50">
+      </div>
+      <div class="ctl">
+        <label for="N">Monte-Carlo trials <span class="val" id="Nv">600</span></label>
+        <input type="range" id="N" min="100" max="2000" step="100" value="600">
+      </div>
+      <div class="ctl" style="flex:1 1 100%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+        <label class="toggle"><input type="checkbox" id="cons" checked> Regime consolidates (R decays over time)</label>
+        <div class="presets">
+          <span class="plabel">Scenarios</span>
+          <button class="preset" data-s="0.70" data-r="0.30" data-e="0.30" data-c="1">A · Sovereign capture</button>
+          <button class="preset" data-s="0.60" data-r="0.50" data-e="0.40" data-c="0">B · Hollowing</button>
+          <button class="preset" data-s="0.50" data-r="0.70" data-e="0.70" data-c="0">D · Recovery</button>
+          <button class="preset reset" data-s="0.70" data-r="0.50" data-e="0.50" data-c="1">Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <figure>
+    <div class="chartwrap">
+      <svg id="chart" viewBox="0 0 760 420" role="img" aria-label="Median capability-lead trajectory with 10th–90th percentile band">
+        <g id="plot"></g>
+      </svg>
+    </div>
+    <div class="readout">
+      <div class="stat"><span class="k">Median terminal&nbsp;C</span><span><b id="rMed">—</b></span></div>
+      <div class="stat"><span class="k">P(decline · C&lt;0.5)</span><span><b id="rDec">—</b></span></div>
+      <div class="stat" style="flex:1 1 auto;align-self:center;"><span style="font-family:var(--mono);font-size:11px;color:#a49d92;">band = 10th–90th pct · faint lines = individual runs</span></div>
+    </div>
+    <figcaption>
+      The line is the <strong>median</strong> capability lead <em>C</em> across the ensemble; the shaded band is the <strong>10th–90th percentile</strong>; the dashed line marks the <strong>decline threshold</strong> (C&nbsp;=&nbsp;0.5). Read the <em>lower tail</em> and which loop drives it, not the central value: push <em>S</em> high while <em>R₀</em> and <em>E₀</em> are low to see the brand-as-munition and flight loops collapse the tail. Drag the sliders or pick a scenario.
+      <div class="scn">Scenario coordinates — <strong>A</strong> Sovereign capture / managed decline: <code>R₀≈0.30, E₀≈0.30, consolidates</code>. <strong>B</strong> Jurisdictional arbitrage / hollowing: <code>R₀≈0.50, E₀≈0.40, non-consolidating</code>. <strong>D</strong> Recovery / re-coupling: <code>R₀≈0.70, E₀≈0.70, non-consolidating</code>. (Scenario C — discretionary regime that nonetheless binds itself to evidence — is transient and is discussed in the text rather than presented as a preset.)</div>
+    </figcaption>
+  </figure>
+</div>
+
+<script>
+"use strict";
+const TMAX = 40;
+// ---- model (mirrors the essay's §7 specification) ----
+function gaussian(mean, sd){let u=0,v=0;while(u===0)u=Math.random();while(v===0)v=Math.random();
+  return mean + sd*Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+const clamp = x => Math.min(1, Math.max(0, x));
+const logistic = z => 1/(1+Math.exp(-z));
+
+function simulate(S, R0, E0, consolida, noise=0.02){
+  let R=R0, E=E0, C=0.85, T=0.8, K=0.8, M=0.9, L=0.8;
+  const cPath = [C];
+  for(let t=1;t<=TMAX;t++){
+    const Rprev=R;
+    R = clamp(R + (consolida ? -0.03 : 0.02)*(1-R) + gaussian(0,noise));
+    E = clamp(E + 0.5*(R-Rprev) + gaussian(0,noise));
+    const pkill = logistic(3*S - 4*E - 3*R);
+    const shock = Math.random() < pkill ? 1 : 0;
+    K = clamp(K + 0.40*(R-0.5) - 0.30*shock + gaussian(0,noise));
+    T = clamp(T + 0.30*(R-0.5) - 0.20*shock + gaussian(0,noise));
+    M = clamp(M - 0.35*shock + 0.10*(R-0.5) + gaussian(0,noise));
+    C = clamp(C + 0.25*(T-0.5) + 0.15*(K-0.5) - 0.20*(1-M) + gaussian(0,noise));
+    L = clamp(L - 0.30*shock + 0.15*(E-0.5) + gaussian(0,noise));
+    cPath.push(C);
+  }
+  return cPath;
+}
+
+function ensemble(S, R0, E0, consolida, N){
+  const paths = new Array(N);
+  for(let i=0;i<N;i++) paths[i] = simulate(S, R0, E0, consolida);
+  const bands = [];
+  for(let t=0;t<=TMAX;t++){
+    const col = paths.map(p=>p[t]).sort((a,b)=>a-b);
+    const q = pp => col[Math.min(col.length-1, Math.floor(pp*col.length))];
+    bands.push({t, lo:q(0.10), med:q(0.50), hi:q(0.90)});
+  }
+  const finals = paths.map(p=>p[TMAX]);
+  const sorted = finals.slice().sort((a,b)=>a-b);
+  const med = sorted[Math.floor(0.5*finals.length)];
+  const decline = finals.filter(c=>c<0.5).length/finals.length;
+  const sample = [];
+  const step = Math.max(1, Math.floor(N/24));
+  for(let i=0;i<N;i+=step) sample.push(paths[i]);
+  return {bands, med, decline, sample};
+}
+
+// ---- chart geometry ----
+const W=760, H=420, mL=54, mR=18, mT=16, mB=42;
+const pW = W-mL-mR, pH = H-mT-mB;
+const xs = t => mL + (t/TMAX)*pW;
+const ys = c => mT + (1-c)*pH;
+
+function path(points, accessor){
+  return points.map((p,i)=> (i? "L":"M") + xs(p.t).toFixed(1) + " " + ys(accessor(p)).toFixed(1)).join(" ");
+}
+function samplePath(arr){
+  return arr.map((c,t)=> (t? "L":"M") + xs(t).toFixed(1) + " " + ys(c).toFixed(1)).join(" ");
+}
+
+function render(res){
+  const b = res.bands;
+  // band area: hi forward, lo backward
+  const hi = b.map(p=>xs(p.t).toFixed(1)+" "+ys(p.hi).toFixed(1));
+  const lo = b.slice().reverse().map(p=>xs(p.t).toFixed(1)+" "+ys(p.lo).toFixed(1));
+  const bandD = "M"+hi.join(" L")+" L"+lo.join(" L")+" Z";
+
+  let svg = "";
+  // grid + y ticks
+  for(let c=0;c<=1.0001;c+=0.1){
+    const y = ys(c).toFixed(1);
+    const major = Math.abs(c-Math.round(c*2)/2)<1e-9; // 0,0.5,1
+    svg += `<line x1="${mL}" y1="${y}" x2="${mL+pW}" y2="${y}" stroke="${major?'#ddd5c4':'var(--grid)'}" stroke-width="1"/>`;
+    svg += `<text class="ticklab" x="${mL-8}" y="${(+y+3).toFixed(1)}" text-anchor="end">${c.toFixed(1)}</text>`;
+  }
+  // x ticks
+  for(let t=0;t<=TMAX;t+=10){
+    const x = xs(t).toFixed(1);
+    svg += `<line x1="${x}" y1="${mT}" x2="${x}" y2="${mT+pH}" stroke="var(--grid)" stroke-width="1"/>`;
+    svg += `<text class="ticklab" x="${x}" y="${mT+pH+16}" text-anchor="middle">${t}</text>`;
+  }
+  // sample trajectories
+  res.sample.forEach(arr=>{ svg += `<path d="${samplePath(arr)}" fill="none" stroke="#8a1f2b" stroke-opacity="0.07" stroke-width="1"/>`; });
+  // band
+  svg += `<path d="${bandD}" fill="#8a1f2b" fill-opacity="0.15" stroke="none"/>`;
+  // threshold
+  svg += `<line x1="${mL}" y1="${ys(0.5)}" x2="${mL+pW}" y2="${ys(0.5)}" stroke="#9a948a" stroke-width="1" stroke-dasharray="5 4"/>`;
+  svg += `<text class="thlab" x="${mL+4}" y="${(ys(0.5)-5).toFixed(1)}">decline threshold</text>`;
+  // median
+  svg += `<path d="${path(b,p=>p.med)}" fill="none" stroke="#8a1f2b" stroke-width="2.4"/>`;
+  // axis labels
+  svg += `<text class="axislab" x="${mL+pW/2}" y="${H-6}" text-anchor="middle">Time (steps →)</text>`;
+  svg += `<text class="axislab" transform="translate(15 ${mT+pH/2}) rotate(-90)" text-anchor="middle">Capability lead C</text>`;
+
+  const g = document.getElementById("plot");
+  g.style.opacity = 0;
+  g.innerHTML = svg;
+  requestAnimationFrame(()=>{ g.style.opacity = 1; });
+
+  document.getElementById("rMed").textContent = res.med.toFixed(2);
+  document.getElementById("rDec").textContent = (res.decline*100).toFixed(0)+"%";
+}
+
+// ---- wiring ----
+const el = id => document.getElementById(id);
+function readParams(){
+  return {
+    S:  +el("S").value,
+    R0: +el("R0").value,
+    E0: +el("E0").value,
+    N:  +el("N").value,
+    cons: el("cons").checked
+  };
+}
+function syncLabels(p){
+  el("Sv").textContent  = p.S.toFixed(2);
+  el("R0v").textContent = p.R0.toFixed(2);
+  el("E0v").textContent = p.E0.toFixed(2);
+  el("Nv").textContent  = p.N;
+}
+let scheduled=false;
+function update(){
+  if(scheduled) return; scheduled=true;
+  requestAnimationFrame(()=>{
+    scheduled=false;
+    const p = readParams();
+    syncLabels(p);
+    render(ensemble(p.S, p.R0, p.E0, p.cons, p.N));
+  });
+}
+["S","R0","E0","N"].forEach(id=> el(id).addEventListener("input", update));
+el("cons").addEventListener("change", update);
+document.querySelectorAll("button.preset").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    el("S").value  = btn.dataset.s;
+    el("R0").value = btn.dataset.r;
+    el("E0").value = btn.dataset.e;
+    el("cons").checked = btn.dataset.c === "1";
+    update();
+  });
+});
+update();
+</script>
+</body>
+</html>
