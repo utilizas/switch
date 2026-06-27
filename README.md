@@ -62,11 +62,11 @@ frontier provider's most capable models as a dated, structurally diagnostic case
 
 ## Citation
 
-> Moreno, M. (2026). *The Threat Silicon Valley Did Not See Coming*. https://doi.org/10.5281/zenodo.20962090
+> Moreno-Muñoz, M. (2026). *The Threat Silicon Valley Did Not See Coming*. https://doi.org/10.5281/zenodo.20962090
 
 ```bibtex
 @misc{moreno2026threat,
-  author       = {Moreno, Miguel},
+  author       = {Moreno-Muñoz, Miguel},
   title        = {The Threat Silicon Valley Did Not See Coming},
   year         = {2026},
   publisher    = {Zenodo},
