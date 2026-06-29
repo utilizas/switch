@@ -64,12 +64,13 @@ frontier provider's most capable models as a dated, structurally diagnostic case
 
 ```bibtex
 @misc{moreno2026threat,
-  author       = {Moreno-Muñoz, Miguel},
-  title        = {The Threat Silicon Valley Did Not See Coming: Structural Decline of Frontier-AI Developers in a Regulatory Environment Degraded by Competitive Authoritarianism and Science Denialism},
-  year         = {2026},
-  publisher    = {Zenodo},
-  doi          = {10.5281/zenodo.20962090},
-  url          = {https://switchia.vercel.app/}
+  author    = {Moreno-Mu{\~n}oz, Miguel},
+  title     = {{The Threat Silicon Valley Did Not See Coming: Structural decline of frontier AI developers in a regulatory environment degraded by competitive authoritarianism and science denialism}},
+  year      = {2026},
+  publisher = {Zenodo (CERN Open Research Repository)},
+  doi       = {10.5281/zenodo.20962090},
+  url       = {https://doi.org/10.5281/zenodo.20962090},
+  note      = {[A short-form essay with an interactive graphical simulation (HTML only)]; Available via Vercel (canonical), Netlify, GitHub (repository and Pages), and Cloudflare Pages.}
 }
 ```
 
