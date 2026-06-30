@@ -68,7 +68,7 @@ frontier provider's most capable models as a dated, structurally diagnostic case
 
 > Moreno-Muñoz, M. (2026). *The Threat Silicon Valley Did Not See Coming: Structural Decline of Frontier-AI Developers in a Regulatory Environment Degraded by Competitive Authoritarianism and Science Denialism*. Zenodo. https://doi.org/10.5281/zenodo.20962090
 > 
-> A Spanish-language edition (translation by the author) is available in HTML at https://utilizas.github.io/switch/silicon-valley-threat-es.html and in PDF at https://switchia.netlify.app/silicon-valley-threat-es.pdf; the citation record (author, year, DOI) is unchanged.
+> A Spanish-language edition (translation by the author) is available in HTML at https://utilizas.github.io/switch/silicon-valley-threat-es.html and in PDF at https://switchia.netlify.app/silicon-valley-threat-es.pdf.
 
 ```bibtex
 @misc{moreno2026threat,
