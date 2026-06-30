@@ -34,7 +34,9 @@ frontier provider's most capable models as a dated, structurally diagnostic case
 > This work is a short-form essay, argued and referenced to research-paper standard, whose HTML edition adds a range of interactive elements — including a graphical simulation with adjustable parameters — available in that edition alone. 
 >
 > Published in HTML and PDF under a Creative Commons BY-NC-SA 4.0 licence; the canonical version
-> is available at **https://switchia.vercel.app/**.
+> is available at **https://switchia.vercel.app/**. A Spanish-language edition is available at
+> **https://utilizas.github.io/switch/silicon-valley-threat-es.html** (HTML) and
+> **https://switchia.netlify.app/silicon-valley-threat-es.pdf** (PDF).
 
 ## Read it
 
@@ -42,7 +44,9 @@ frontier provider's most capable models as a dated, structurally diagnostic case
 | --- | --- |
 | HTML (canonical) | https://switchia.vercel.app/ |
 | HTML (mirror) | https://utilizas.github.io/switch/ · https://switchia.netlify.app/ · https://switchia.pages.dev/ |
+| HTML (Spanish) | https://utilizas.github.io/switch/silicon-valley-threat-es.html |
 | PDF | [`silicon-valley-threat.pdf`](silicon-valley-threat.pdf) |
+| PDF (Spanish) | [`silicon-valley-threat-es.pdf`](https://switchia.netlify.app/silicon-valley-threat-es.pdf) |
 | Archived record (DOI) | https://doi.org/10.5281/zenodo.20962090 |
 
 ## Repository contents
@@ -51,7 +55,9 @@ frontier provider's most capable models as a dated, structurally diagnostic case
 | --- | --- |
 | `index.html` | HTML edition (self-contained; embedded fonts and styles). |
 | `silicon-valley-threat.pdf` | PDF edition. |
-| `scenario-sim.html` | Interactive scenario model embedded in the HTML edition. |
+| `silicon-valley-threat-es.html` | Spanish HTML edition (self-contained; embedded fonts and styles). |
+| `silicon-valley-threat-es.pdf` | Spanish PDF edition. |
+| `scenario-sim.html` | Interactive scenario model embedded in the HTML edition (shared by both language editions). |
 | `scenario-sim-static.pdf` / `.png` | Static fallbacks of the scenario model for print. |
 | `cover_silicon_valley.png` | Cover (portrait, 2:3). |
 | `refia-social-card.png` | Open Graph social card (1200×630). |
@@ -61,6 +67,8 @@ frontier provider's most capable models as a dated, structurally diagnostic case
 ## Citation
 
 > Moreno-Muñoz, M. (2026). *The Threat Silicon Valley Did Not See Coming: Structural Decline of Frontier-AI Developers in a Regulatory Environment Degraded by Competitive Authoritarianism and Science Denialism*. Zenodo. https://doi.org/10.5281/zenodo.20962090
+> 
+> A Spanish-language edition (translation by the author) is available in HTML at https://utilizas.github.io/switch/silicon-valley-threat-es.html and in PDF at https://switchia.netlify.app/silicon-valley-threat-es.pdf; the citation record (author, year, DOI) is unchanged.
 
 ```bibtex
 @misc{moreno2026threat,
@@ -70,7 +78,7 @@ frontier provider's most capable models as a dated, structurally diagnostic case
   publisher = {Zenodo (CERN Open Research Repository)},
   doi       = {10.5281/zenodo.20962090},
   url       = {https://doi.org/10.5281/zenodo.20962090},
-  note      = {[A short-form essay with an interactive graphical simulation (HTML only)]; Available via Vercel (canonical), Netlify, GitHub (repository and Pages), and Cloudflare Pages.}
+  note      = {[A short-form essay with an interactive graphical simulation (HTML only)]; Available via Vercel (canonical), Netlify, GitHub (repository and Pages), and Cloudflare Pages. A Spanish-language edition is also available (HTML: https://utilizas.github.io/switch/silicon-valley-threat-es.html; PDF: https://switchia.netlify.app/silicon-valley-threat-es.pdf).}
 }
 ```
 
